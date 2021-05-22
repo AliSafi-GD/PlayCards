@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject cardPrefab;
+    public Transform[] trsParents;
     public CardController cardController;
     public Users users;
 
-    public List<Card> currentCards = new List<Card>();
+    public List<CardObject> currentCards = new List<CardObject>();
 
     private void Start()
     {
         users.InitUser();
         cardController.InitCardsObject();
-        currentCards = new List<Card>(cardController.cardsObject);
+        currentCards = new List<CardObject>(cardController.cardsObject);
         DestributeCards();
     }
     void DestributeCards()
@@ -27,9 +29,10 @@ public class GameController : MonoBehaviour
             for (int j = 0; j < 5; j++)
             {
                 int rnd = Random.Range(0, currentCards.Count);
-                Card card = currentCards[rnd];
+                CardObject card = currentCards[rnd];
                 currentCards.Remove(card);
                 users.users[i].currentCards.Add(card);
+                CreateCard(card,trsParents[i]);
             }
         }
         ContinueDistributeCard();
@@ -43,11 +46,18 @@ public class GameController : MonoBehaviour
                 for (int c = 0; c < 4; c++)
                 {
                     int rnd = Random.Range(0, currentCards.Count);
-                    Card card = currentCards[rnd];
+                    CardObject card = currentCards[rnd];
                     currentCards.Remove(card);
-                    users.users[i].currentCards.Add(card);
+                    users.users[u].currentCards.Add(card);
+                    CreateCard(card, trsParents[u]);
                 }
             }
         }
+    }
+
+    void CreateCard(CardObject card,Transform parent)
+    {
+        Card c = Instantiate(cardPrefab, parent).GetComponent<Card>();
+        c._Card = card;
     }
 }

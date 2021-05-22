@@ -6,10 +6,10 @@ public class CardController : MonoBehaviour
 {
     public enum CardGroup
     {
-        Heart = 0, Diamond = 1, Club = 2, Spade = 3
+        Club = 0, Diamond = 1, Heart = 2, Spade = 3
     }
     // Start is called before the first frame update
-    public List<Card> cardsObject = new List<Card>();
+    public List<CardObject> cardsObject = new List<CardObject>();
 
     public void InitCardsObject()
     {
@@ -21,7 +21,7 @@ public class CardController : MonoBehaviour
             {
                 
                 CardGroup cardGroup = (CardGroup)i;
-                cardsObject.Add(new Card(j, cardGroup,spr[number]));
+                cardsObject.Add(new CardObject(j, cardGroup,spr[number]));
                // print($"{cardsObject[i]}");
                 number++;
             }
