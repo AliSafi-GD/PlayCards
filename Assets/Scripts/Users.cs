@@ -4,23 +4,12 @@ using UnityEngine;
 
 public class Users : MonoBehaviour
 {
-    public List<Card> cardsObject = new List<Card>();
-
-    private void Start()
-    {
-        InitCardsObject();
-    }
-
-    void InitCardsObject()
+    public List<User> users = new List<User>();
+    public void InitUser()
     {
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < 13; j++)
-            {
-                Card.CardGroup cardGroup = (Card.CardGroup)i;
-                cardsObject.Add(new Card(j, cardGroup));
-                print($"{cardsObject[i]}");
-            }
+            users.Add(new User());
         }
     }
 
@@ -37,15 +26,12 @@ public class User
 [System.Serializable]
 public class Card
 {
-    public enum CardGroup
-    {
-        Heart=0,Diamond=1,Spade=2,Club=3
-    }
+    
     public int number;
-    public CardGroup cardGroup;
+    public CardController.CardGroup cardGroup;
     public Sprite spr;
-    public Card(int number,CardGroup cardGroup)
+    public Card(int number, CardController.CardGroup cardGroup,Sprite spr)
     {
-        this.number = number;this.cardGroup = cardGroup;
+        this.number = number;this.cardGroup = cardGroup;this.spr = spr;
     }
 }
